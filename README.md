@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# CRYPTO CURRENCY CHART
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Features:
 
-## Available Scripts
+- Display a list of cryptocurrencies with their market capitalization and responsive.
+- Allow users to filter cryptocurrencies based on a market cap range.
+- Allow users to select specific cryptocurrencies to view.
+- Provide a toggle for light/dark mode.
+- Provide a refresh button to revalidate data manually.
 
-In the project directory, you can run:
 
-### `npm start`
+Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![alt text](public/excalidraw.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Data Model
 
-### `npm test`
+Server-originated Data: 
+- Data from external API (array of object contains id,market_cap...)
+Client-Side State:
+- Selected Catgories: array of crypto [bitcoin,..,]
+- rangeValue: number value 
+- send in serions the x and y axis 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+Difficulties Encounter:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Problem 1: we get big numbers for the cap market variable that can't be display as we get 
+- Solution 1 : format the numbers to the same dimension with Intl.NumberFormat (not a npm module, awesome tool) to reduce the gap between them and more user friendly to show 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Problem 2 : show list with big gap between the first and the others score cap market (bitcoin 1,3T$)
+- Solution 2: try with options distribute to reduce the difference and the format in billion and trillion help a lot
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Problem 3: show precise data and show to the user that it's cap market in dollars after we format the number 
+- Solution 3: give in dataLabels the precise data with $ currency 
 
-### `npm run eject`
+- Probleme 4 : responsiveness of a chart bar 
+- Solution 4: I add in options the title and subtite to align differently and let widht and heigt auto. Also I decide to not show Horizontail position because not showing nice view 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Probleme 5: at the begginning I had the category (xaxis : bitcoin...) in the options part but bother me for the structuration of the project 
+- Solution 5: I move with the series data possibility
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Conception Idea: 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- try to design the component to be controlled component, the react prefer the compoenent pure.
+- I try the most to build generic compoenent that the Parent compoenent pass the props. 
+- The container component is handle the data processing and pass to their children 
+- Update the logo in tootbar to have a design more modern 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Optimizations and Deep Dive
 
-## Learn More
+Performance:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Caching: Utilize SWR's cache to minimize redundant data fetching.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+User Experience:
 
-### Code Splitting
+- Loading States: Provide loading indicators during data fetching.
+- Error Handling: Display error messages for failed API requests.
+- Responsive Design: Ensure components adapt to different screen sizes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
